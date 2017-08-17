@@ -6,6 +6,22 @@ from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
 
 
+class ClientIcons(object):
+    """
+    Maps to FontAwesome icons - http://fontawesome.io/icons/
+    """
+
+    DESKTOP = 'desktop'
+    APPLE = 'apple'
+    ANDROID = 'android'
+
+    CHOICES = (
+        (DESKTOP, 'Desktop',),
+        (APPLE, 'Apple',),
+        (ANDROID, 'Android',),
+    )
+
+
 @python_2_unicode_compatible
 class Client(models.Model):
     """
@@ -13,6 +29,9 @@ class Client(models.Model):
     """
 
     name = models.CharField(max_length=255)
+    icon = models.CharField(
+        max_length=20, choices=ClientIcons.CHOICES, default=ClientIcons.DESKTOP
+    )
 
     # Used for new version detection
     current_version = models.CharField(max_length=255, editable=False)

@@ -4,6 +4,7 @@
 	<title>Release Notes</title>
 
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 	<style type="text/css">
 	/* Base */
@@ -12,7 +13,6 @@
 		font-size: 16px;
 	}
 	h1 {
-		font-weight: 300;
 		margin-bottom: 10px;
 	}
 	p {
@@ -25,6 +25,10 @@
 	}
 	.m-b-lg {
 		margin-bottom: 40px;
+	}
+
+	.font-light {
+		font-weight: 300;
 	}
 
 	.text-center {
@@ -65,7 +69,7 @@
 <body>
 
 <div class="text-center m-b-lg">
-	<h1>Release Notes</h1>
+	<h1 class="font-light">Release Notes</h1>
 	{% if page_description %}
 		<p>{{ page_description }}</p>
 	{% endif %}
@@ -81,7 +85,11 @@
 		{% endifchanged %}
 		<div class="right">
 			<div class="release-note">
-				<p style="    margin-bottom: 4px; font-weight: 300; font-size: 18px;">{{ release_note.client.name }}{% if release_note.version %} &middot; {{ release_note.version }}{% endif %}</p>
+				<p class="m-b-sm font-light" style="font-size: 18px;">
+					<i style="font-size: 14px;" class="fa fa-{{ release_note.client.icon }}"></i>
+					{{ release_note.client.name }}
+					{% if release_note.version %} &middot; {{ release_note.version }}{% endif %}
+				</p>
 				<p style="white-space: pre;">{{ release_note.notes }}</p>
 			</div>
 		</div>
