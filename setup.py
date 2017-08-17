@@ -14,7 +14,7 @@ setup(
     author='Nick Romano',
     author_email='nick.r.romano@gmail.com',
     packages=find_packages(),
-    include_package_data=True,
+    package_data={'product_release_notes': ['templates/release_notes/*.html']},
     install_requires=[
         'Django>=1.8',
     ],
