@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Release Notes</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+
+	<style type="text/css">
+	/* Base */
+	body {
+		font-family: 'Open Sans', sans-serif;
+		font-size: 16px;
+	}
+	h1 {
+		font-weight: 300;
+		margin-bottom: 10px;
+	}
+	p {
+		margin-top: 0;
+	}
+
+	/* Components */
+	.m-t-sm {
+		margin-top: 4px;
+	}
+	.m-b-lg {
+		margin-bottom: 40px;
+	}
+
+	.text-center {
+		text-align: center;
+	}
+	.text-upper {
+		text-transform: uppercase;
+	}
+	.text-small {
+		font-size: 12px;
+		font-weight: 700;
+	}
+
+	/* Containers */
+	.container {
+		max-width: 640px;
+		margin: 0 auto;
+	}
+	.left {
+		width: 20%;
+    float: left;
+	}
+	.right {
+		width: 80%;
+		float: right;
+	}
+
+	/* Page Specific */
+	.release-note {
+		border-bottom: 1px solid #ccc;
+		margin-bottom: 14px;
+	}
+	.row:last-child .release-note {
+		border-bottom: 0;
+	}
+	</style>
+</head>
+<body>
+
+<div class="text-center m-b-lg">
+	<h1>Release Notes</h1>
+	{% if page_description %}
+		<p>{{ page_description }}</p>
+	{% endif %}
+</div>
+
+<div class="container">
+	{% for release_note in release_notes %}
+		<div class="row">
+			{% ifchanged %}
+			<div class="left text-upper text-small m-t-sm">
+				{{ release_note.release_date }}
+			</div>
+		{% endifchanged %}
+		<div class="right">
+			<div class="release-note">
+				<p style="    margin-bottom: 4px; font-weight: 300; font-size: 18px;">{{ release_note.client.name }}{% if release_note.version %} &middot; {{ release_note.version }}{% endif %}</p>
+				<p style="white-space: pre;">{{ release_note.notes }}</p>
+			</div>
+		</div>
+		</div>
+	{% endfor %}
+</div>
+
+</body>
+</html>

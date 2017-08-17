@@ -1,0 +1,68 @@
+from __future__ import absolute_import, unicode_literals
+
+from datetime import datetime
+from django.db import models
+from django.conf import settings
+from django.utils.encoding import python_2_unicode_compatible
+
+
+@python_2_unicode_compatible
+class Client(models.Model):
+    """
+    Android, iOS, Web
+    """
+
+    name = models.CharField(max_length=255)
+
+    # Used for new version detection
+    current_version = models.CharField(max_length=255, editable=False)
+    itunes_url = models.CharField(
+        max_length=1000, blank=True,
+        help_text='Enter the url to iTunes to automatically pull in new release notes as drafts.'
+    )
+
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+
+@python_2_unicode_compatible
+class ReleaseNote(models.Model):
+    client = models.ForeignKey(
+        Client, related_name='release_notes',
+        on_delete=models.CASCADE
+    )
+
+    notes = models.TextField()
+    release_date = models.DateField(default=datetime.today)
+    version = models.CharField(max_length=255, blank=True)
+
+    is_published = models.BooleanField(
+        default=False, help_text='Check this box when you\'re ready to publish')
+
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        self.notes = self.notes.strip()
+        return super(ReleaseNote, self).save(*args, **kwargs)
+
+    class Meta:
+        ordering = ['-release_date']
+
+    def __str__(self):
+        return '{}: {}'.format(self.client.name, self.version)
+
+
+class ReleaseNoteEdit(models.Model):
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, related_name='releas',
+        on_delete=models.CASCADE
+    )
+
+    notes = models.TextField()
+    is_published = models.BooleanField(default=False)
+
+    edited_at = models.DateTimeField(auto_now=True)

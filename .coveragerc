@@ -1,0 +1,6 @@
+[run]
+source = .
+include =
+	product_release_notes/*
+omit =
+    .eggs/*

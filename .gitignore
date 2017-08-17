@@ -1,0 +1,6 @@
+*.pyc
+.eggs
+product_release_notes.egg-info
+/dist
+/.coverage
+/htmlcov
