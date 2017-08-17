@@ -6,7 +6,7 @@ DESCRIPTION = "Release notes page for your product."
 
 setup(
     name="product_release_notes",
-    version="0.0.5",
+    version="0.0.6",
     url='https://github.com/nickromano/product-release-notes',
     license='BSD',
     description=DESCRIPTION,

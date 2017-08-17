@@ -47,6 +47,14 @@ class Client(models.Model):
         return self.name
 
 
+class ReleaseNotesManager(models.Manager):
+
+    def published(self):
+        return self.filter(
+            is_published=True
+        ).select_related('client')
+
+
 @python_2_unicode_compatible
 class ReleaseNote(models.Model):
     client = models.ForeignKey(
@@ -63,6 +71,8 @@ class ReleaseNote(models.Model):
 
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+
+    objects = ReleaseNotesManager()
 
     def save(self, *args, **kwargs):
         self.notes = self.notes.strip()

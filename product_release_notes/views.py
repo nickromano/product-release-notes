@@ -7,9 +7,7 @@ from .models import ReleaseNote
 
 
 def release_notes(request):
-    release_notes = ReleaseNote.objects.filter(
-        is_published=True
-    ).select_related('client')
+    release_notes = ReleaseNote.objects.published()
 
     return render(request, 'release_notes/list.html', {
         'release_notes': release_notes,
