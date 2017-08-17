@@ -8,7 +8,7 @@ from .models import Client, ReleaseNote
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
     list_display = (
-        'name', 'itunes_url',
+        'name', 'itunes_url', 'current_version',
         'created', 'modified',
     )
 

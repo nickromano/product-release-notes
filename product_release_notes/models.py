@@ -5,6 +5,8 @@ from django.db import models
 from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
 
+from .itunes import current_version_from_itunes
+
 
 class ClientIcons(object):
     """
@@ -42,6 +44,17 @@ class Client(models.Model):
 
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+
+    def __init__(self, *args, **kwargs):
+        super(Client, self).__init__(*args, **kwargs)
+        self.__original_itunes_url = self.itunes_url
+
+    def save(self, *args, **kwargs):
+        if self.itunes_url and self.__original_itunes_url != self.itunes_url:
+            # Updated iTunes URL
+            self.current_version = current_version_from_itunes(self.itunes_url)['version']
+
+        return super(Client, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
