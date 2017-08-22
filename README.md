@@ -38,3 +38,13 @@ Optional settings to customize the release notes page.
 ```
 RELEASE_NOTES_PAGE_DESCRIPTION = 'My product updates.'
 ```
+
+5) Optional - Create release note drafts when new versions are released to iTunes
+
+Fill in the itunes_url field when creating a client.
+
+Add a scheduled job to run at least daily to check for new versions in iTunes
+
+```
+./manage.py check_app_stores
+```

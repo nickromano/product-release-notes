@@ -1,5 +1,6 @@
 import re
 import requests
+from datetime import datetime
 
 ITUNES_ID_REGEX = re.compile(r'id(?P<itunes_id>[0-9]+)')
 
@@ -26,8 +27,10 @@ def current_version_from_itunes(itunes_url):
         raise UnableToFindItunesIDException
 
     result = data['results'][0]
+    release_date = result['currentVersionReleaseDate']
+    release_date = datetime.strptime(release_date, '%Y-%m-%dT%H:%M:%SZ')
     return {
-        'release_date': result['currentVersionReleaseDate'],
+        'release_date': release_date,
         'release_notes': result.get('releaseNotes', ''),
         'version': result['version']
     }

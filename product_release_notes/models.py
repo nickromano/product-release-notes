@@ -5,8 +5,6 @@ from django.db import models
 from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
 
-from .itunes import current_version_from_itunes
-
 
 class ClientIcons(object):
     """
@@ -36,7 +34,6 @@ class Client(models.Model):
     )
 
     # Used for new version detection
-    current_version = models.CharField(max_length=255, editable=False)
     itunes_url = models.CharField(
         max_length=1000, blank=True,
         help_text='Enter the url to iTunes to automatically pull in new release notes as drafts.'
@@ -44,17 +41,6 @@ class Client(models.Model):
 
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-
-    def __init__(self, *args, **kwargs):
-        super(Client, self).__init__(*args, **kwargs)
-        self.__original_itunes_url = self.itunes_url
-
-    def save(self, *args, **kwargs):
-        if self.itunes_url and self.__original_itunes_url != self.itunes_url:
-            # Updated iTunes URL
-            self.current_version = current_version_from_itunes(self.itunes_url)['version']
-
-        return super(Client, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -77,7 +63,7 @@ class ReleaseNote(models.Model):
 
     notes = models.TextField()
     release_date = models.DateField(default=datetime.today)
-    version = models.CharField(max_length=255, blank=True)
+    version = models.CharField(max_length=255, blank=True, db_index=True)
 
     is_published = models.BooleanField(
         default=False, help_text='Check this box when you\'re ready to publish')
