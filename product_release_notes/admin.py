@@ -16,6 +16,6 @@ class ClientAdmin(admin.ModelAdmin):
 @admin.register(ReleaseNote)
 class ReleaseNoteAdmin(admin.ModelAdmin):
     list_display = (
-        'notes', 'release_date', 'is_published', 'client',
+        'release_date', 'version', 'notes', 'is_published', 'client',
         'created', 'modified',
     )
