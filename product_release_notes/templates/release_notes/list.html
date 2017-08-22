@@ -6,6 +6,7 @@
 	<link rel="alternate" type="application/rss+xml" title="Release Notes RSS Feed" href="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'release-notes-feed' %}">
 
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 	<style type="text/css">
@@ -44,20 +45,6 @@
 		font-weight: 700;
 	}
 
-	/* Containers */
-	.container {
-		max-width: 640px;
-		margin: 0 auto;
-	}
-	.left {
-		width: 20%;
-    float: left;
-	}
-	.right {
-		width: 80%;
-		float: right;
-	}
-
 	/* Page Specific */
 	.release-note {
 		border-bottom: 1px solid #ccc;
@@ -78,25 +65,29 @@
 </div>
 
 <div class="container">
-	{% for release_note in release_notes %}
-		<div class="row">
-			{% ifchanged %}
-			<div class="left text-upper text-small m-t-sm">
-				{{ release_note.release_date }}
-			</div>
-		{% endifchanged %}
-		<div class="right">
-			<div class="release-note">
-				<p class="m-b-sm font-light" style="font-size: 18px;">
-					<i style="font-size: 14px;" class="fa fa-{{ release_note.client.icon }}"></i>
-					{{ release_note.client.name }}
-					{% if release_note.version %} &middot; {{ release_note.version }}{% endif %}
-				</p>
-				<p style="white-space: pre;">{{ release_note.notes }}</p>
-			</div>
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			{% for release_note in release_notes %}
+				<div class="row">
+					{% ifchanged %}
+						<div class="col-sm-3 text-upper text-small m-t-sm">
+							{{ release_note.release_date }}
+						</div>
+					{% endifchanged %}
+					<div class="col-sm-9 {% ifchanged release_note.release_date %}{% else %}col-sm-offset-3{% endifchanged %}">
+						<div class="release-note">
+							<p class="m-b-sm font-light" style="font-size: 18px;">
+								<i style="font-size: 14px;" class="fa fa-{{ release_note.client.icon }}"></i>
+								{{ release_note.client.name }}
+								{% if release_note.version %} &middot; {{ release_note.version }}{% endif %}
+							</p>
+							<p style="white-space: pre-wrap;">{{ release_note.notes }}</p>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
 		</div>
-		</div>
-	{% endfor %}
+	</div>
 </div>
 
 </body>
