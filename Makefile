@@ -29,8 +29,6 @@ lint:
 	flake8 .
 
 release:
-	rm -Rf dist/
-	python setup.py sdist
-	twine upload dist/*
+	python setup.py publish
 
 .PHONY: help clean test lint release
