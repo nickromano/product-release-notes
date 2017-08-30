@@ -11,5 +11,6 @@ def release_notes(request):
 
     return render(request, 'release_notes/list.html', {
         'release_notes': release_notes,
+        'product_name': getattr(settings, 'RELEASE_NOTES_PRODUCT_NAME', ''),
         'page_description': getattr(settings, 'RELEASE_NOTES_PAGE_DESCRIPTION', '')
     })

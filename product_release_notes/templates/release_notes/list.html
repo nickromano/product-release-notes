@@ -1,93 +1,55 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Release Notes</title>
+{% extends 'release_notes/base.html' %}
 
-	<link rel="alternate" type="application/rss+xml" title="Release Notes RSS Feed" href="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'release-notes-feed' %}">
+{% load release_notes %}
 
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+{% block release_notes_extra_head %}
+	{% release_notes_feed %}
 
 	<style type="text/css">
-	/* Base */
-	body {
-		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-		font-size: 16px;
-	}
-	h1 {
-		margin-bottom: 10px;
-	}
-	p {
-		margin-top: 0;
-	}
-
-	/* Components */
-	.m-t-sm {
-		margin-top: 4px;
-	}
-	.m-b-lg {
-		margin-bottom: 40px;
-	}
-
-	.font-light {
-		font-weight: 200;
-	}
-
-	.text-center {
-		text-align: center;
-	}
-	.text-upper {
-		text-transform: uppercase;
-	}
-	.text-small {
-		font-size: 12px;
-		font-weight: 700;
-	}
-
-	/* Page Specific */
-	.release-note {
-		border-bottom: 1px solid #ccc;
-		margin-bottom: 14px;
-	}
-	.row:last-child .release-note {
-		border-bottom: 0;
-	}
+		/* Page Specific */
+		.release-note {
+			border-bottom: 1px solid #ccc;
+			margin-bottom: 14px;
+		}
+		.row:last-child .release-note {
+			border-bottom: 0;
+		}
 	</style>
-</head>
-<body>
+{% endblock %}
 
-<div class="text-center m-b-lg">
-	<h1 class="font-light">Release Notes</h1>
-	{% if page_description %}
-		<p>{{ page_description }}</p>
-	{% endif %}
-</div>
+{% block release_notes_body_header %}
+	<div class="text-center m-b-lg">
+		<h1 class="font-light">Release Notes</h1>
+		{% if page_description %}
+			<p>{{ page_description }}</p>
+		{% endif %}
+	</div>
+{% endblock %}
 
-<div class="container">
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			{% for release_note in release_notes %}
-				<div class="row">
-					{% ifchanged %}
-						<div class="col-sm-3 text-upper text-small m-t-sm">
-							{{ release_note.release_date }}
-						</div>
-					{% endifchanged %}
-					<div class="col-sm-9 {% ifchanged release_note.release_date %}{% else %}col-sm-offset-3{% endifchanged %}">
-						<div class="release-note">
-							<p class="m-b-sm font-light" style="font-size: 18px;">
-								<i style="font-size: 14px;" class="fa fa-{{ release_note.client.icon }}"></i>
-								{{ release_note.client.name }}
-								{% if release_note.version %} &middot; {{ release_note.version }}{% endif %}
-							</p>
-							<p style="white-space: pre-wrap;">{{ release_note.notes }}</p>
+{% block release_notes_body %}
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				{% for release_note in release_notes %}
+					<div class="row">
+						{% ifchanged %}
+							<div class="col-sm-3 text-upper text-small m-t-sm">
+								{{ release_note.release_date }}
+							</div>
+						{% endifchanged %}
+						<div class="col-sm-9 {% ifchanged release_note.release_date %}{% else %}col-sm-offset-3{% endifchanged %}">
+							<div class="release-note">
+								<p class="m-b-sm font-light" style="font-size: 18px;">
+									<i style="font-size: 14px;" class="fa fa-{{ release_note.client.icon }}"></i>
+									{{ release_note.client.name }}
+									{% if release_note.version %} &middot; {{ release_note.version }}{% endif %}
+								</p>
+								<p style="white-space: pre-wrap;">{{ release_note.notes }}</p>
+							</div>
 						</div>
 					</div>
-				</div>
-			{% endfor %}
+				{% endfor %}
+			</div>
 		</div>
 	</div>
-</div>
-
-</body>
-</html>
+{% endblock %}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Release Notes{% if product_name %} - {{ product_name }}{% endif %}</title>
+
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+	<style type="text/css">
+	/* Base */
+	body {
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+		font-size: 16px;
+	}
+	h1 {
+		margin-bottom: 10px;
+	}
+	p {
+		margin-top: 0;
+	}
+
+	/* Components */
+	.m-t-sm {
+		margin-top: 4px;
+	}
+	.m-b-lg {
+		margin-bottom: 40px;
+	}
+	.m-b-sm {
+		margin-bottom: 4px;
+	}
+
+	.font-light {
+		font-weight: 200;
+	}
+
+	.text-center {
+		text-align: center;
+	}
+	.text-upper {
+		text-transform: uppercase;
+	}
+	.text-small {
+		font-size: 12px;
+		font-weight: 700;
+	}
+	</style>
+
+	{% block release_notes_extra_head %}{% endblock %}
+</head>
+<body>
+
+{% block release_notes_body_header %}{% endblock %}
+{% block release_notes_body %}{% endblock %}
+
+</body>
+</html>
