@@ -9,11 +9,9 @@ python:
 install:
   - pip install Django
   - pip install requests
-  - pip install flake8
   - pip install prospector
   - pip install coveralls
 before_script:
-  - "flake8 ."
   - "prospector"
 script: coverage run setup.py test
 after_success:
