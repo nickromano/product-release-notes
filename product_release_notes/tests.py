@@ -48,13 +48,13 @@ class RSSFeedTestCase(TestCase):
         )
 
         response = self.client.get(reverse('release-notes-feed'))
-        self.assertFalse('Initial release' in response.content)
+        self.assertFalse('Initial release' in str(response.content))
 
         test_release_note.is_published = True
         test_release_note.save()
 
         response = self.client.get(reverse('release-notes-feed'))
-        self.assertTrue('Initial release' in response.content)
+        self.assertTrue('Initial release' in str(response.content))
 
     def test_rss_feed_contains_items_without_versions(self, *_):
         test_client = Client.objects.create(name='iOS', icon=ClientIcons.APPLE)
@@ -64,7 +64,7 @@ class RSSFeedTestCase(TestCase):
         )
 
         response = self.client.get(reverse('release-notes-feed'))
-        self.assertTrue('Initial release' in response.content)
+        self.assertTrue('Initial release' in str(response.content))
 
 
 class CheckAppStoreTestCase(TestCase):
@@ -104,13 +104,13 @@ class ReleaseNotesPageTestCase(TestCase):
         )
 
         response = self.client.get(reverse('release-notes'))
-        self.assertFalse('Initial release' in response.content)
+        self.assertFalse('Initial release' in str(response.content))
 
         test_release_note.is_published = True
         test_release_note.save()
 
         response = self.client.get(reverse('release-notes'))
-        self.assertTrue('Initial release' in response.content)
+        self.assertTrue('Initial release' in str(response.content))
 
 
 class MockRequest(object):
