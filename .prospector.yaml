@@ -2,3 +2,6 @@ ignore-paths:
   - build
   - migrations
   - .eggs
+strictness: high
+uses:
+  - django

@@ -6,7 +6,7 @@ from django.conf import settings
 from .models import ReleaseNote
 
 
-def release_notes(request):
+def release_notes_list(request):
     release_notes = ReleaseNote.objects.published()
 
     return render(request, 'release_notes/list.html', {

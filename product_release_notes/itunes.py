@@ -1,6 +1,7 @@
 import re
-import requests
 from datetime import datetime
+
+import requests
 
 ITUNES_ID_REGEX = re.compile(r'id(?P<itunes_id>[0-9]+)')
 

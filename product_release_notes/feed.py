@@ -13,9 +13,11 @@ class ReleaseNotesFeed(Feed):
     title = '{} Release Notes'.format(getattr(settings, 'RELEASE_NOTES_PRODUCT_NAME', '')).strip()
     description = getattr(settings, 'RELEASE_NOTES_PAGE_DESCRIPTION', '')
 
+    @property
     def link(self):
         return reverse('release-notes')
 
+    @property
     def items(self):
         return ReleaseNote.objects.published()[:10]
 
@@ -37,8 +39,10 @@ class ReleaseNotesFeed(Feed):
     def item_link(self, item):
         return reverse('release-notes')
 
+    @property
     def item_guid(self, obj):
         return str(obj.id)
 
+    @property
     def item_pubdate(self, item):
         return datetime.combine(item.release_date, time())
