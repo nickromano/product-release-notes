@@ -1,0 +1,4 @@
+ignore-paths:
+  - build
+  - migrations
+  - .eggs

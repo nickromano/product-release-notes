@@ -25,11 +25,11 @@ class ReleaseNotesFeed(Feed):
                 item.client.name,
                 item.version
             )
-        else:
-            return '{} {}'.format(
-                item.client.name,
-                item.release_date.strftime('%x')
-            )
+
+        return '{} {}'.format(
+            item.client.name,
+            item.release_date.strftime('%x')
+        )
 
     def item_description(self, item):
         return item.notes.replace('\n', '<br />')
