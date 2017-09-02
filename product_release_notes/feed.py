@@ -2,11 +2,16 @@ from __future__ import absolute_import, unicode_literals
 
 from datetime import datetime, time
 
-from django.contrib.syndication.views import Feed
-from django.urls import reverse
 from django.conf import settings
+from django.contrib.syndication.views import Feed
 
 from .models import ReleaseNote
+
+try:
+    from django.urls import reverse
+except ImportError:
+    # Django 1.8
+    from django.core.urlresolvers import reverse
 
 
 class ReleaseNotesFeed(Feed):
