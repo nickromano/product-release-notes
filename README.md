@@ -21,7 +21,7 @@ pip install product_release_notes
 from django.conf.urls import url, include
 
 urlpatterns = [
-    url(r'release-notes/', include('product_release_notes.urls')),
+    url(r'^release-notes/', include('product_release_notes.urls')),
 ]
 ```
 
