@@ -7,6 +7,13 @@ from product_release_notes.itunes import current_version_from_itunes
 from product_release_notes.models import Client, ReleaseNote
 
 
+MAIL_MESSAGE = """Release Notes:
+{notes}
+
+Publish the notes here: {base_url}/admin/product_release_notes/releasenote/{release_id}/
+"""
+
+
 def send_email_notification(client, current_version, release_note):
     if getattr(settings, 'DISABLE_RELEASE_NOTES_NOTIFICATION', False):
         return
@@ -15,8 +22,10 @@ def send_email_notification(client, current_version, release_note):
         '{} release notes added for version {}'.format(
             client.name, current_version
         ),
-        'Publish the notes here: {}/admin/product_release_notes/releasenote/{}/'.format(
-            getattr(settings, 'BASE_URL', '/'), release_note.id
+        MAIL_MESSAGE.format(
+            notes=release_note.notes,
+            base_url=getattr(settings, 'BASE_URL', '/'),
+            release_id=release_note.id
         )
     )
 

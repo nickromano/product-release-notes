@@ -84,7 +84,7 @@ class CheckAppStoreTestCase(TestCase):
 
         mock_mail_admins.assert_called_with(
             'iOS release notes added for version 1.0',
-            'Publish the notes here: //admin/product_release_notes/releasenote/1/'
+            'Release Notes:\nInitial release\n\nPublish the notes here: //admin/product_release_notes/releasenote/1/\n'
         )
 
         test_release_note = ReleaseNote.objects.all()[0]
