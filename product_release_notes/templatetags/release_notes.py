@@ -15,15 +15,24 @@ FEED_HTML = """
 """
 
 
+class MissingRequestTemplateContext(Exception):
+    ERROR_MESSAGE = "django.template.context_processors.request to your TEMPLATES context_processors"
+
+
 @register.simple_tag(takes_context=True)
 def release_notes_feed(context):
     scheme = ''
     host = ''
 
-    request = context.get('request')
-    if request:
-        scheme = request.scheme
-        host = request.META['HTTP_HOST']
+    try:
+        request = context['request']
+    except KeyError:
+        raise MissingRequestTemplateContext(
+            MissingRequestTemplateContext.ERROR_MESSAGE
+        )
+
+    scheme = request.scheme
+    host = request.get_host()
 
     feed_url = FEED_HTML.format(
         scheme=scheme,

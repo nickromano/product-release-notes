@@ -9,7 +9,7 @@ from django.test import TestCase
 
 from .itunes import current_version_from_itunes
 from .models import Client, ClientIcons, ReleaseNote
-from .templatetags.release_notes import release_notes_feed
+from .templatetags.release_notes import release_notes_feed, MissingRequestTemplateContext
 
 
 class MockITunesResponse():
@@ -95,6 +95,18 @@ class CheckAppStoreTestCase(TestCase):
         self.assertEqual(test_release_note.client, test_client)
 
 
+TEMPLATES_MISSING_CONTEXT_PROCESSOR = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': []
+        }
+    },
+]
+
+
 class ReleaseNotesPageTestCase(TestCase):
 
     def test_release_notes_page_only_shows_published(self, *_):
@@ -112,12 +124,17 @@ class ReleaseNotesPageTestCase(TestCase):
         response = self.client.get(reverse('release-notes'))
         self.assertTrue('Initial release' in str(response.content))
 
+    def test_release_notes_requires_request_context(self, *_):
+        with self.settings(TEMPLATES=TEMPLATES_MISSING_CONTEXT_PROCESSOR):
+            with self.assertRaises(MissingRequestTemplateContext):
+                self.client.get(reverse('release-notes'))
+
 
 class MockRequest(object):
     scheme = 'http'
-    META = {
-        'HTTP_HOST': 'localhost'
-    }
+
+    def get_host(self):
+        return 'localhost'
 
 
 class ReleaseNotesTemplateTagsTestCase(TestCase):
