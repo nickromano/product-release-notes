@@ -33,6 +33,13 @@ def send_email_notification(client, current_version, release_note):
 class Command(BaseCommand):
     help = 'Checks iTunes and Google Play for new versions and creates drafts.'
 
+    def success_message(self, message):
+        if hasattr(self.style, 'SUCCESS'):
+            self.stdout.write(self.style.SUCCESS(message))
+        else:
+            # Django 1.8
+            self.stdout.write(self.style.MIGRATE_SUCCESS(message))
+
     def handle(self, *args, **options):
         for client in Client.objects.exclude(itunes_url=''):
             itunes_information = current_version_from_itunes(client.itunes_url)
@@ -46,10 +53,7 @@ class Command(BaseCommand):
                 }
             )
             if created:
-                self.stdout.write(self.style.SUCCESS(
-                    'Version changed for {} {}'.format(client, current_version))
-                )
-
+                self.success_message('Version changed for {} {}'.format(client, current_version))
                 send_email_notification(client, current_version, release_note)
 
-        self.stdout.write(self.style.SUCCESS('Checked iTunes'))
+        self.success_message('Checked iTunes')
