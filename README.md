@@ -4,6 +4,25 @@
 [![Coverage Status](https://coveralls.io/repos/github/nickromano/product-release-notes/badge.svg?branch=master)](https://coveralls.io/github/nickromano/product-release-notes?branch=master)
 [![PyPi](https://img.shields.io/pypi/v/product_release_notes.svg)](https://pypi.python.org/pypi/product-release-notes)
 
+Add a changelog to your website that includes release notes for each of your clients.
+
+* Support for multiple clients (iOS, Android, Web)
+* RSS feed of changes
+* Easily extend the style of the page
+* Automatically pull release notes from iTunes
+* Automatically pull release notes from Google Play (Coming Soon)
+
+![Release Notes](docs/release-notes.png)
+
+Edit releases using the Django Admin.
+
+![Django Admin](docs/release-notes-editor.png)
+
+## Examples
+
+* [Pinnacle Climb Log](https://pinnacleclimb.com/release-notes/)
+* [Echo Responder](https://echoresponder.com/release-notes/)
+
 ## Installation
 
 1) Install the python package
