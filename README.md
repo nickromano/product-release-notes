@@ -48,3 +48,24 @@ Add a scheduled job to run at least daily to check for new versions in iTunes
 ```
 ./manage.py check_app_stores
 ```
+
+6) Optional - Customize the release notes page
+
+Create a template `release_notes/base.html` to override the packages base template.
+
+```
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Release Notes</title>
+
+	{% block release_notes_extra_head %}{% endblock %}
+</head>
+<body>
+
+{% block release_notes_body_header %}{% endblock %}
+{% block release_notes_body %}{% endblock %}
+
+</body>
+</html>
+```
