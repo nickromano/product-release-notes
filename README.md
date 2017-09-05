@@ -54,7 +54,7 @@ urlpatterns = [
 
 Optional settings to customize the release notes page.
 
-```
+```python
 RELEASE_NOTES_PAGE_DESCRIPTION = 'My product updates.'
 ```
 
@@ -72,7 +72,7 @@ Add a scheduled job to run at least daily to check for new versions in iTunes an
 
 Create a template `release_notes/base.html` to override the packages base template.
 
-```
+```html
 <!DOCTYPE html>
 <html>
 <head>
