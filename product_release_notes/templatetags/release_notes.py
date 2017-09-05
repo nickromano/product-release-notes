@@ -16,7 +16,10 @@ FEED_HTML = """
 
 
 class MissingRequestTemplateContext(Exception):
-    ERROR_MESSAGE = "django.template.context_processors.request to your TEMPLATES context_processors"
+    ERROR_MESSAGE = (
+        "django.template.context_processors.request "
+        "to your TEMPLATES context_processors"
+    )
 
 
 @register.simple_tag(takes_context=True)

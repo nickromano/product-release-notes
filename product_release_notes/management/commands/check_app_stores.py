@@ -4,6 +4,7 @@ from django.conf import settings
 from django.core.mail import mail_admins
 from django.core.management.base import BaseCommand
 from product_release_notes.itunes import current_version_from_itunes
+from product_release_notes.google_play import current_version_from_google
 from product_release_notes.models import Client, ReleaseNote
 
 
@@ -57,3 +58,23 @@ class Command(BaseCommand):
                 send_email_notification(client, current_version, release_note)
 
         self.success_message('Checked iTunes')
+
+        for client in Client.objects.exclude(google_play_url=''):
+            google_play_information = current_version_from_google(client.google_play_url)
+            # Google Play may have multiple versions depending on the device
+            # look up by release_date
+            release_date = google_play_information['release_date']
+
+            release_note, created = ReleaseNote.objects.get_or_create(
+                client=client, release_date=release_date,
+                defaults={
+                    'notes': google_play_information['release_notes']
+                }
+            )
+            if created:
+                self.success_message('Version changed for {} {}'.format(client, release_date))
+                send_email_notification(
+                    client, release_date.strftime('%B %d, %Y'), release_note
+                )
+
+        self.success_message('Checked Google Play')

@@ -36,7 +36,17 @@ class Client(models.Model):
     # Used for new version detection
     itunes_url = models.CharField(
         max_length=1000, blank=True,
-        help_text='Enter the url to iTunes to automatically pull in new release notes as drafts.'
+        help_text=(
+            'Enter the url to iTunes to automatically '
+            'pull in new release notes as drafts.'
+        )
+    )
+    google_play_url = models.CharField(
+        max_length=1000, blank=True,
+        help_text=(
+            'Enter the url to Google Play to automatically '
+            'pull in new release notes as drafts.'
+        )
     )
 
     created = models.DateTimeField(auto_now_add=True)

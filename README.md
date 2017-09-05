@@ -10,7 +10,7 @@ Add a changelog to your website that includes release notes for each of your cli
 * RSS feed of changes
 * Easily extend the style of the page
 * Automatically pull release notes from iTunes
-* Automatically pull release notes from Google Play (Coming Soon)
+* Automatically pull release notes from Google Play
 
 ![Release Notes](docs/release-notes.png)
 
@@ -62,7 +62,7 @@ RELEASE_NOTES_PAGE_DESCRIPTION = 'My product updates.'
 
 Fill in the `itunes_url` field when creating a client.
 
-Add a scheduled job to run at least daily to check for new versions in iTunes
+Add a scheduled job to run at least daily to check for new versions in iTunes and Google Play
 
 ```
 ./manage.py check_app_stores

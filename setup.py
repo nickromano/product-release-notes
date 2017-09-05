@@ -66,6 +66,7 @@ setup(
     package_data={'product_release_notes': ['templates/release_notes/*.html']},
     install_requires=[
         'Django>=1.8',
+        'beautifulsoup4',
         'requests',
     ],
     classifiers=[

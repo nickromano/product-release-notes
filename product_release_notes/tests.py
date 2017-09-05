@@ -10,6 +10,7 @@ from django.test import TestCase
 from .itunes import current_version_from_itunes
 from .models import Client, ClientIcons, ReleaseNote
 from .templatetags.release_notes import release_notes_feed, MissingRequestTemplateContext
+from .google_play import current_version_from_google
 
 
 class MockITunesResponse():
@@ -71,7 +72,7 @@ class CheckAppStoreTestCase(TestCase):
 
     @mock.patch('product_release_notes.management.commands.check_app_stores.mail_admins')
     @mock.patch('product_release_notes.management.commands.check_app_stores.current_version_from_itunes')
-    def test_check_app_store_pulls_new_versions(self, mock_current_version, mock_mail_admins, *_):
+    def test_check_itunes_pulls_new_versions(self, mock_current_version, mock_mail_admins, *_):
         mock_current_version.return_value = {
             'version': '1.0',
             'release_notes': 'Initial release',
@@ -92,6 +93,30 @@ class CheckAppStoreTestCase(TestCase):
         self.assertEqual(test_release_note.notes, 'Initial release')
         self.assertEqual(test_release_note.release_date, date(2017, 9, 1))
         self.assertEqual(test_release_note.version, '1.0')
+        self.assertEqual(test_release_note.client, test_client)
+
+    @mock.patch('product_release_notes.management.commands.check_app_stores.mail_admins')
+    @mock.patch('product_release_notes.management.commands.check_app_stores.current_version_from_google')
+    def test_check_google_play_pulls_new_versions(self, mock_current_version, mock_mail_admins, *_):
+        mock_current_version.return_value = {
+            'release_notes': 'Initial release',
+            'release_date': datetime(2017, 9, 1, 18, 54, 48)
+        }
+
+        test_client = Client.objects.create(name='Android', icon=ClientIcons.ANDROID, google_play_url='http://play.google.com')
+
+        call_command('check_app_stores')
+
+        mock_mail_admins.assert_called_with(
+            'Android release notes added for version September 01, 2017',
+            'Release Notes:\nInitial release\n\nPublish the notes here: //admin/product_release_notes/releasenote/1/\n'
+        )
+
+        test_release_note = ReleaseNote.objects.all()[0]
+        self.assertEqual(test_release_note.is_published, False)
+        self.assertEqual(test_release_note.notes, 'Initial release')
+        self.assertEqual(test_release_note.release_date, date(2017, 9, 1))
+        self.assertEqual(test_release_note.version, '')
         self.assertEqual(test_release_note.client, test_client)
 
 
@@ -147,3 +172,54 @@ class ReleaseNotesTemplateTagsTestCase(TestCase):
             release_notes_feed(context),
             '<link rel="alternate" type="application/rss+xml" title="Release Notes RSS Feed" href="http://localhost/feed/">'
         )
+
+
+html_doc = """
+<div class="details-wrapper">
+    <div class="details-section whatsnew">
+        <div class="details-section-contents show-more-container">
+            <h1 class="heading"> What's New </h1>
+            <div class="recent-change">New version release notes</div>
+        </div>
+        <div class="details-section-divider"></div>
+    </div>
+</div>
+<div class="details-wrapper apps-secondary-color">
+    <div class="details-section metadata">
+        <div class="details-section-heading">
+            <h1 class="heading"> Additional information </h1>
+        </div>
+        <div class="details-section-contents">
+            <div class="meta-info">
+                <div class="title">Updated</div>
+                <div class="content" itemprop="datePublished">December 14, 2016</div>
+            </div>
+            <div class="meta-info">
+                <div class="title">Current Version</div>
+                <div class="content" itemprop="softwareVersion"> Varies with device </div>
+            </div>
+            <div class="meta-info">
+                <div class="title">Requires Android</div>
+                <div class="content" itemprop="operatingSystems"> Varies with device </div>
+            </div>
+        </div>
+        <div class="details-section-divider"></div>
+    </div>
+</div>
+"""
+
+
+class MockGooglePlayRequest():
+    text = html_doc
+
+    def raise_for_status(self):
+        pass
+
+
+class GooglePlayFetchTestCase(TestCase):
+
+    @mock.patch('product_release_notes.google_play.requests.get', return_value=MockGooglePlayRequest())
+    def test_google_play_version_api(self, *_):
+        current_version = current_version_from_google('')
+        self.assertEqual(current_version['release_date'], date(2016, 12, 14))
+        self.assertEqual(current_version['release_notes'], 'New version release notes')
