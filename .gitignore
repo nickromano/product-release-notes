@@ -6,3 +6,4 @@ product_release_notes.egg-info
 /htmlcov
 /build
 /test
+/project/staticfiles
