@@ -12,7 +12,7 @@ help:
 	@echo "    test"
 	@echo "        Run test suite."
 	@echo "    lint"
-	@echo "        Run flake8."
+	@echo "        Run prospector."
 	@echo "    release"
 	@echo "        Release to PyPi."
 
@@ -25,10 +25,13 @@ clean:
 test: clean
 	python setup.py test
 
+test-with-coverage: clean
+	coverage run setup.py test
+
 lint:
-	flake8 .
+	prospector
 
 release:
 	python setup.py publish
 
-.PHONY: help clean test lint release
+.PHONY: help clean test test-with-coverage lint release
