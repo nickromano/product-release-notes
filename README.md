@@ -3,6 +3,8 @@
 [![Build Status](https://travis-ci.org/nickromano/product-release-notes.svg?branch=master)](https://travis-ci.org/nickromano/product-release-notes)
 [![Coverage Status](https://coveralls.io/repos/github/nickromano/product-release-notes/badge.svg?branch=master)](https://coveralls.io/github/nickromano/product-release-notes?branch=master)
 [![PyPi](https://img.shields.io/pypi/v/product_release_notes.svg)](https://pypi.python.org/pypi/product-release-notes)
+![PyPI](https://img.shields.io/pypi/pyversions/product_release_notes.svg)
+![PyPI](https://img.shields.io/pypi/l/product_release_notes.svg)
 
 Add a changelog to your website that includes release notes for each of your clients.
 
