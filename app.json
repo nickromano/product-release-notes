@@ -1,0 +1,25 @@
+{
+    "name": "Product Release Notes",
+    "description": "Add a changelog to your website that includes release notes for each of your clients.",
+    "repository": "https://github.com/nickromano/product-release-notes",
+    "keywords": [
+        "django",
+        "python"
+    ],
+    "env": {
+        "SECRET_KEY": {
+            "description": "Must be unique for your app.",
+            "generator": "secret"
+        }
+    },
+    "addons": [
+        "heroku-postgresql",
+        "scheduler"
+    ],
+    "scripts": {
+        "postdeploy": [
+            "./manage.py migrate",
+            "./manage.py createsuperuser"
+        ]
+    }
+}
