@@ -1,0 +1,16 @@
+./manage.py migrate
+echo "-------------------------------------------------------"
+echo "Create an admin account to manage release notes."
+echo "-------------------------------------------------------"
+./manage.py createsuperuser
+echo "-------------------------------------------------------"
+echo "Set up a scheduled job to check App Stores. (Optional)"
+echo "-------------------------------------------------------"
+echo "1) Open the \"Heroku Scheduler\" addon."
+echo ""
+echo "2) Add a new scheduled job."
+echo ""
+echo "3) Enter in \"./manage.py check_app_stores\""
+echo ""
+echo "4) Set the frequency to \"hourly\""
+echo ""

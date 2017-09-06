@@ -17,9 +17,6 @@
         "scheduler"
     ],
     "scripts": {
-        "postdeploy": [
-            "./manage.py migrate",
-            "./manage.py createsuperuser"
-        ]
+        "postdeploy": "./scripts/bootstrap.sh"
     }
 }
