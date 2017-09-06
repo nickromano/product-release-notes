@@ -11,6 +11,8 @@ help:
 	@echo "        Remove all .pyc files from repo."
 	@echo "    test"
 	@echo "        Run test suite."
+	@echo "    test-with-coverage"
+	@echo "        Run tests and generate a coverage report."
 	@echo "    lint"
 	@echo "        Run prospector."
 	@echo "    release"
