@@ -6,8 +6,16 @@
         "django",
         "python"
     ],
-    "success_url": "/",
+    "success_url": "/deploy-instructions/",
     "env": {
+        "SUPERUSER_USERNAME": {
+            "description": "Email address for superuser account.",
+            "required": true
+        },
+        "SUPERUSER_PASSWORD": {
+            "description": "Password for superuser account.",
+            "required": true
+        },
         "SECRET_KEY": {
             "description": "Must be unique for your app.",
             "generator": "secret"
@@ -28,6 +36,6 @@
         "scheduler"
     ],
     "scripts": {
-        "postdeploy": "./manage.py migrate"
+        "postdeploy": "./scripts/bootstrap.sh"
     }
 }

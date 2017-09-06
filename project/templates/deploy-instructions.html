@@ -1,0 +1,43 @@
+{% extends 'release_notes/base.html' %}
+
+{% load release_notes %}
+
+{% block release_notes_extra_head %}
+	{% release_notes_feed %}
+
+	<style type="text/css">
+		/* Page Specific */
+		.release-note {
+			border-bottom: 1px solid #ccc;
+			margin-bottom: 14px;
+		}
+		.row:last-child .release-note {
+			border-bottom: 0;
+		}
+	</style>
+{% endblock %}
+
+{% block release_notes_body %}
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<h2 class="m-t-xlg">Product Release Notes has been installed! 🎉</h2>
+
+				<h4 class="m-t-lg">Get Started</h4>
+				<p><a href="/admin/product_release_notes/releasenote/add/">Create your first release note</a></p>
+
+				<h4 class="m-t-lg">Optional - Pull release notes from App Store and Google Play</h4>
+
+				<ol>
+					<li>Open the "Heroku Scheduler" addon.</li>
+					<li>Add a new scheduled job.</li>
+					<li>
+						Enter the following command 
+						<pre>./manage.py check_app_stores</pre>
+					</li>
+					<li>Set the frequency to "hourly"</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+{% endblock %}
