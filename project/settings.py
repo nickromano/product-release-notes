@@ -21,8 +21,8 @@ if ENVIRONMENT == ENVIRONMENT_LOCAL:
     }
 elif ENVIRONMENT == ENVIRONMENT_HEROKU:
     # Running in Heroku
-    import dj_database_url
-    db_from_env = dj_database_url.config()
+    import dj_database_url  # noqa
+    db_from_env = dj_database_url.config()  # noqa
     DATABASES = {
         'default': db_from_env
     }
