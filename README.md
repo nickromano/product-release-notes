@@ -14,6 +14,10 @@ Add a changelog to your website that includes release notes for each of your cli
 * Automatically pull release notes from iTunes
 * Automatically pull release notes from Google Play
 
+You can either install it as a package into your existing project, or deploy directly to Heroku.
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
 ![Release Notes](docs/release-notes.png)
 
 Edit releases using the Django Admin.
