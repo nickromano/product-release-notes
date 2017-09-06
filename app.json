@@ -7,6 +7,7 @@
         "python"
     ],
     "env": {
+        "ENVIRONMENT": "heroku",
         "SECRET_KEY": {
             "description": "Must be unique for your app.",
             "generator": "secret"

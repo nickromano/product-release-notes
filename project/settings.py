@@ -3,14 +3,32 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-DEBUG = True
+ENVIRONMENT_LOCAL = 'local'
+ENVIRONMENT_HEROKU = 'heroku'
+
+ENVIRONMENT = os.environ.get('ENVIRONMENT', ENVIRONMENT_LOCAL)
+
+DEBUG = os.environ.get('DEBUG', True)
 SECRET_KEY = os.environ.get('SECRET_KEY', '123')
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'test'
+
+if ENVIRONMENT == ENVIRONMENT_LOCAL:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'test'
+        }
     }
-}
+elif ENVIRONMENT == ENVIRONMENT_HEROKU:
+    # Running in Heroku
+    import dj_database_url
+    db_from_env = dj_database_url.config()
+    DATABASES = {
+        'default': db_from_env
+    }
+else:
+    raise Exception(
+        '{} not a valid ENVIRONMENT option.'.format(ENVIRONMENT)
+    )
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
