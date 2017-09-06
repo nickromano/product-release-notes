@@ -6,6 +6,7 @@
         "django",
         "python"
     ],
+    "success_url": "/",
     "env": {
         "SECRET_KEY": {
             "description": "Must be unique for your app.",
@@ -27,6 +28,6 @@
         "scheduler"
     ],
     "scripts": {
-        "postdeploy": "./scripts/bootstrap.sh"
+        "postdeploy": "./manage.py migrate"
     }
 }

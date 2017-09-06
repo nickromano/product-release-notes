@@ -1,4 +1,3 @@
-./manage.py migrate
 echo "-------------------------------------------------------"
 echo "Create an admin account to manage release notes."
 echo "-------------------------------------------------------"
