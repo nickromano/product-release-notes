@@ -19,3 +19,6 @@ class ReleaseNoteAdmin(admin.ModelAdmin):
         'release_date', 'version', 'notes', 'is_published', 'client',
         'created', 'modified',
     )
+    list_filter = ('client__name', 'is_published',)
+    list_select_related = ('client',)
+    date_hierarchy = 'release_date'
