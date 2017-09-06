@@ -7,10 +7,19 @@
         "python"
     ],
     "env": {
-        "ENVIRONMENT": "heroku",
         "SECRET_KEY": {
             "description": "Must be unique for your app.",
             "generator": "secret"
+        },
+        "ALLOWED_HOSTS": {
+            "description": "Set to the heroku app's url after deploying to make this service more secure.",
+            "value": "*",
+            "required": true
+        },
+        "ENVIRONMENT": {
+            "description": "Needs to be set to \"heroku\".",
+            "value": "heroku",
+            "required": true
         }
     },
     "addons": [

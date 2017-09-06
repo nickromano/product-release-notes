@@ -8,7 +8,8 @@ ENVIRONMENT_HEROKU = 'heroku'
 
 ENVIRONMENT = os.environ.get('ENVIRONMENT', ENVIRONMENT_LOCAL)
 
-DEBUG = os.environ.get('DEBUG', True)
+ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS', '*')]
+DEBUG = os.environ.get('DEBUG', ENVIRONMENT == ENVIRONMENT_LOCAL)
 SECRET_KEY = os.environ.get('SECRET_KEY', '123')
 
 if ENVIRONMENT == ENVIRONMENT_LOCAL:
