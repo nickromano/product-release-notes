@@ -5,3 +5,4 @@ product_release_notes.egg-info
 /.coverage
 /htmlcov
 /build
+/test
