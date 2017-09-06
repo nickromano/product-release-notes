@@ -68,7 +68,8 @@ class ReleaseNotesManager(models.Manager):
 class ReleaseNote(models.Model):
     client = models.ForeignKey(
         Client, related_name='release_notes',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        help_text='Examples: iOS, Android, Web'
     )
 
     notes = models.TextField()
