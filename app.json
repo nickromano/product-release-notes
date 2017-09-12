@@ -1,6 +1,7 @@
 {
     "name": "Product Release Notes",
     "description": "Add a changelog to your website that includes release notes for each of your clients.",
+    "logo": "https://cdn.rawgit.com/nickromano/product-release-notes/00d40f0e/docs/logo.svg",
     "repository": "https://github.com/nickromano/product-release-notes",
     "keywords": [
         "django",

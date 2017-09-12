@@ -1,3 +1,5 @@
+<img width="80" src="docs/logo.svg" alt="Logo">
+
 # product-release-notes
 
 [![Build Status](https://travis-ci.org/nickromano/product-release-notes.svg?branch=master)](https://travis-ci.org/nickromano/product-release-notes)
@@ -6,7 +8,7 @@
 ![PyPI](https://img.shields.io/pypi/pyversions/product_release_notes.svg)
 ![PyPI](https://img.shields.io/pypi/l/product_release_notes.svg)
 
-Add a changelog to your website that includes release notes for each of your clients.
+Add a changelog for your website that includes release notes for each of your clients.
 
 * Support for multiple clients (iOS, Android, Web)
 * RSS feed of changes
