@@ -56,7 +56,9 @@
 </head>
 <body>
 
-{% block release_notes_body_header %}{% endblock %}
+{% if not embed %}
+	{% block release_notes_body_header %}{% endblock %}
+{% endif %}
 {% block release_notes_body %}{% endblock %}
 
 </body>
