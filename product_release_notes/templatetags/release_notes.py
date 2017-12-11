@@ -2,7 +2,13 @@ import re
 
 from django import template
 from django.utils.html import format_html
-from django.core.urlresolvers import reverse
+
+try:
+    from django.urls import reverse
+except ImportError:
+    # Django 1.8
+    from django.core.urlresolvers import reverse
+
 
 register = template.Library()
 
