@@ -4,13 +4,20 @@ from datetime import date, datetime
 
 import mock
 from django.core.management import call_command
-from django.core.urlresolvers import reverse
 from django.test import TestCase
 
+from .google_play import current_version_from_google
 from .itunes import current_version_from_itunes
 from .models import Client, ClientIcons, ReleaseNote
-from .templatetags.release_notes import release_notes_feed, MissingRequestTemplateContext
-from .google_play import current_version_from_google
+from .templatetags.release_notes import (
+    MissingRequestTemplateContext, release_notes_feed
+)
+
+try:
+    from django.urls import reverse
+except ImportError:
+    # Django 1.8
+    from django.core.urlresolvers import reverse
 
 
 class MockITunesResponse():
