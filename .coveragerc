@@ -4,3 +4,5 @@ include =
 	product_release_notes/*
 omit =
     .eggs/*
+	*/migrations/*
+	*/tests.py
