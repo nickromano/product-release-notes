@@ -14,7 +14,7 @@ help:
 	@echo "    test-with-coverage"
 	@echo "        Run tests and generate a coverage report."
 	@echo "    lint"
-	@echo "        Run prospector."
+	@echo "        Run flake8."
 	@echo "    release"
 	@echo "        Release to PyPi."
 
@@ -31,7 +31,7 @@ test-with-coverage: clean
 	coverage run setup.py test
 
 lint:
-	prospector
+	flake8 .
 
 release:
 	python setup.py publish
