@@ -42,6 +42,8 @@ class Command(BaseCommand):
             self.stdout.write(self.style.MIGRATE_SUCCESS(message))
 
     def handle(self, *args, **options):
+        auto_publish = getattr(settings, 'RELEASE_NOTES_AUTO_PUBLISH', False)
+
         for client in Client.objects.exclude(itunes_url=''):
             itunes_information = current_version_from_itunes(client.itunes_url)
             current_version = itunes_information['version']
@@ -50,7 +52,8 @@ class Command(BaseCommand):
                 client=client, version=current_version,
                 defaults={
                     'notes': itunes_information['release_notes'],
-                    'release_date': itunes_information['release_date']
+                    'release_date': itunes_information['release_date'],
+                    'is_published': auto_publish
                 }
             )
             if created:
@@ -68,9 +71,11 @@ class Command(BaseCommand):
             release_note, created = ReleaseNote.objects.get_or_create(
                 client=client, release_date=release_date,
                 defaults={
-                    'notes': google_play_information['release_notes']
+                    'notes': google_play_information['release_notes'],
+                    'is_published': auto_publish
                 }
             )
+
             if created:
                 self.success_message('Version changed for {} {}'.format(client, release_date))
                 send_email_notification(

@@ -126,6 +126,39 @@ class CheckAppStoreTestCase(TestCase):
         self.assertEqual(test_release_note.version, '')
         self.assertEqual(test_release_note.client, test_client)
 
+    @mock.patch('product_release_notes.management.commands.check_app_stores.mail_admins')
+    @mock.patch('product_release_notes.management.commands.check_app_stores.current_version_from_google')
+    def test_check_google_play_auto_publish(self, mock_current_version, mock_mail_admins, *_):
+        mock_current_version.return_value = {
+            'release_notes': 'Initial release',
+            'release_date': datetime(2017, 9, 1, 18, 54, 48)
+        }
+
+        Client.objects.create(name='Android', icon=ClientIcons.ANDROID, google_play_url='http://play.google.com')
+
+        with self.settings(RELEASE_NOTES_AUTO_PUBLISH=True):
+            call_command('check_app_stores')
+
+        test_release_note = ReleaseNote.objects.all()[0]
+        self.assertEqual(test_release_note.is_published, True)
+
+    @mock.patch('product_release_notes.management.commands.check_app_stores.mail_admins')
+    @mock.patch('product_release_notes.management.commands.check_app_stores.current_version_from_itunes')
+    def test_check_itunes_auto_publish(self, mock_current_version, mock_mail_admins, *_):
+        mock_current_version.return_value = {
+            'version': '1.0',
+            'release_notes': 'Initial release',
+            'release_date': datetime(2017, 9, 1, 18, 54, 48)
+        }
+
+        Client.objects.create(name='iOS', icon=ClientIcons.APPLE, itunes_url='http://apple.com')
+
+        with self.settings(RELEASE_NOTES_AUTO_PUBLISH=True):
+            call_command('check_app_stores')
+
+        test_release_note = ReleaseNote.objects.all()[0]
+        self.assertEqual(test_release_note.is_published, True)
+
 
 TEMPLATES_MISSING_CONTEXT_PROCESSOR = [
     {

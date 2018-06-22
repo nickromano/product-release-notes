@@ -64,6 +64,7 @@ Optional settings to customize the release notes page.
 
 ```python
 RELEASE_NOTES_PAGE_DESCRIPTION = 'My product updates.'
+RELEASE_NOTES_AUTO_PUBLISH = False
 ```
 
 5) Optional - Create release note drafts when new versions are released to iTunes
