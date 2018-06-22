@@ -34,6 +34,7 @@ lint:
 	flake8 .
 
 release:
+	mkdir -p dist
 	python setup.py publish
 
 .PHONY: help clean test test-with-coverage lint release
