@@ -67,7 +67,8 @@ setup(
     install_requires=[
         'Django>=1.8',
         'beautifulsoup4',
-        'requests'
+        'requests',
+        'markdown'
     ],
     classifiers=[
         'Framework :: Django',

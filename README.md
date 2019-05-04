@@ -15,6 +15,7 @@ Add a changelog for your website that includes release notes for each of your cl
 * Easily extend the style of the page
 * Automatically pull release notes from iTunes
 * Automatically pull release notes from Google Play
+* Supports Markdown
 
 You can either install it as a package into your existing project, or deploy directly to Heroku.
 

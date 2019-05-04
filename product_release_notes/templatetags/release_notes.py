@@ -1,7 +1,9 @@
 import re
+import markdown
 
 from django import template
 from django.utils.html import format_html
+from django.utils.safestring import mark_safe
 
 try:
     from django.urls import reverse
@@ -53,3 +55,9 @@ def release_notes_feed(context):
     feed_url = re.sub(' +', ' ', feed_url)
 
     return format_html(feed_url)
+
+
+@register.filter
+def from_markdown(text):
+    html = markdown.markdown(text)
+    return mark_safe(html)

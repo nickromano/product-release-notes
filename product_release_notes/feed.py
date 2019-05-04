@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
+import markdown
 from datetime import datetime, time
 
 from django.conf import settings
@@ -37,7 +38,8 @@ class ReleaseNotesFeed(Feed):
         )
 
     def item_description(self, item):
-        return item.notes.replace('\n', '<br />')
+        html = markdown.markdown(item.notes)
+        return html.replace('<p>', '<p style="white-space: pre-wrap;">')
 
     def item_link(self, item):
         return reverse('release-notes')
