@@ -6,13 +6,23 @@
 	{% release_notes_feed %}
 
 	<style type="text/css">
-		/* Page Specific */
-		.release-note {
-			border-bottom: 1px solid #ccc;
-			margin-bottom: 14px;
+		.latest-label {
+			text-transform: uppercase;
+			background: #4a90e2;
+			border-color: #4a90e2;
+			color: white;
+			padding: 0px 10px;
+			font-size: 10px;
+			font-weight: bold;
+			border-radius: 4px;
+			margin: 0 10px;
+			vertical-align: top;
 		}
-		.row:last-child .release-note {
-			border-bottom: 0;
+		.release-note-row .latest-label {
+			display: none;
+		}
+		.release-note-row:first-child .latest-label {
+			display: inline-block;
 		}
 		.markdown p {
 			white-space: pre-wrap;
@@ -34,19 +44,20 @@
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 				{% for release_note in release_notes %}
-					<div class="row">
-						{% ifchanged %}
-							<div class="col-sm-3 text-upper text-small m-t-sm">
-								{{ release_note.release_date }}
-							</div>
-						{% endifchanged %}
-						<div class="col-sm-9 {% ifchanged release_note.release_date %}{% else %}col-sm-offset-3{% endifchanged %}">
-							<div class="release-note">
-								<p class="m-b-sm font-light" style="font-size: 18px;">
-									<i style="font-size: 14px;" class="fa fa-{{ release_note.client.icon }}"></i>
-									{{ release_note.client.name }}
-									{% if release_note.version %} &middot; {{ release_note.version }}{% endif %}
-								</p>
+					<div class="row release-note-row">
+						<div class="col-sm-12">
+							<div class="release-note m-b-lg">
+								<div class="release-note-header m-b-sm">
+									<p class="font-light" style="font-size: 24px; margin-bottom: 0; display: inline-block;">
+										<i class="fa fa-{{ release_note.client.icon }}"></i>
+										{{ release_note.client.name }}
+										{% if release_note.version %} &middot; Version: {{ release_note.version }}{% endif %}
+									</p>
+									<span class="latest-label">Latest</span>
+								</div>
+								<div class="text-upper font-bold m-b-sm">
+										Released {{ release_note.release_date }}
+									</div>
 								<div class="markdown">
 									{{ release_note.notes|from_markdown }}
 								</div>
