@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import sys
 import os
-from setuptools import find_packages, setup, Command
+import sys
 from shutil import rmtree
 
+from setuptools import Command, find_packages, setup
 
 NAME = 'product_release_notes'
 DESCRIPTION = 'Release notes page for your product.'
@@ -68,7 +68,8 @@ setup(
         'Django>=1.8',
         'beautifulsoup4',
         'requests',
-        'markdown'
+        'markdown',
+        'six',
     ],
     classifiers=[
         'Framework :: Django',

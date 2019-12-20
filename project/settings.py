@@ -43,6 +43,7 @@ MIDDLEWARE = [
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'django.contrib.messages',
     'django.contrib.auth',
     'django.contrib.sessions',
     'django.contrib.contenttypes',
