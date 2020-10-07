@@ -5,4 +5,4 @@ psycopg2==2.8.6
 Django==3.1.2
 beautifulsoup4==4.9.3
 requests==2.24.0
-markdown==3.2.2
+markdown==3.3
