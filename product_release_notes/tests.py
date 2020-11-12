@@ -40,7 +40,7 @@ class ITunesFetchTestCase(TestCase):
     def test_itunes_version_api(self, *_):
         itunes_url = 'https://itunes.apple.com/us/app/my-app-name/id3249827349'
         information = current_version_from_itunes(itunes_url)
-        self.assertEquals(information, {
+        self.assertEqual(information, {
             'release_date': datetime(2017, 7, 25, 18, 54, 48),
             'release_notes': 'New: Added new feature\nFixed: Crash when using feature',
             'version': '0.0.1'
