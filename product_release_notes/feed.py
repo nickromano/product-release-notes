@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 import markdown
 from datetime import datetime, time
 
@@ -16,33 +14,29 @@ except ImportError:
 
 
 class ReleaseNotesFeed(Feed):
-    title = '{} Release Notes'.format(getattr(settings, 'RELEASE_NOTES_PRODUCT_NAME', '')).strip()
-    description = getattr(settings, 'RELEASE_NOTES_PAGE_DESCRIPTION', '')
+    title = "{} Release Notes".format(
+        getattr(settings, "RELEASE_NOTES_PRODUCT_NAME", "")
+    ).strip()
+    description = getattr(settings, "RELEASE_NOTES_PAGE_DESCRIPTION", "")
 
     def link(self):  # noqa
-        return reverse('release-notes')
+        return reverse("release-notes")
 
     def items(self):  # noqa
         return ReleaseNote.objects.published()[:10]
 
     def item_title(self, item):
         if item.version:
-            return '{} {}'.format(
-                item.client.name,
-                item.version
-            )
+            return "{} {}".format(item.client.name, item.version)
 
-        return '{} {}'.format(
-            item.client.name,
-            item.release_date.strftime('%x')
-        )
+        return "{} {}".format(item.client.name, item.release_date.strftime("%x"))
 
     def item_description(self, item):
         html = markdown.markdown(item.notes)
-        return html.replace('<p>', '<p style="white-space: pre-wrap;">')
+        return html.replace("<p>", '<p style="white-space: pre-wrap;">')
 
     def item_link(self, item):
-        return reverse('release-notes')
+        return reverse("release-notes")
 
     def item_guid(self, item):  # noqa
         return str(item.id)

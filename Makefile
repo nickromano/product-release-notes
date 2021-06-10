@@ -1,3 +1,6 @@
+.DEFAULT_GOAL := help
+.PHONY: help
+
 define color-yellow
 "\033[0;33m$1\033[0m"
 endef
@@ -7,34 +10,35 @@ define color-red
 endef
 
 help:
-	@echo "    clean"
-	@echo "        Remove all .pyc files from repo."
-	@echo "    test"
-	@echo "        Run test suite."
-	@echo "    test-with-coverage"
-	@echo "        Run tests and generate a coverage report."
-	@echo "    lint"
-	@echo "        Run flake8."
-	@echo "    release"
-	@echo "        Release to PyPi."
+	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
+	| sed -n 's/^\(.*\): \(.*\)\(##.*\)/\1\3/p' \
+	| column -t  -s '##'
 
-clean:
+clean: ## Remove all .pyc files from repo.
 	@echo $(call color-yellow, "→ Clean working directory")
 	@# Remove old pyc files
 	find . -name "*.pyc" -exec rm -rf {} \;
 	@echo $(call color-yellow, "✔︎ Cleaned")
 
-test: clean
-	python setup.py test
+test: clean .state-requirements test-ci ## Run test suite.
 
-test-with-coverage: clean
-	coverage run setup.py test
+test-ci:
+	python manage.py test
 
-lint:
+test-deprecations: clean .state-requirements ## Run test suite with deprecation checks
+	python -Wall manage.py test
+
+.state-requirements: requirements.txt
+	@echo $(call color-yellow,"→ Detected change in requirements.txt")
+	pip install -r requirements.txt
+	@touch .state-requirements
+
+autoformat: .state-requirements ## Auto format all code
+	black . --exclude="venv/*"
+
+lint: .state-requirements lint-ci ## Lint project
+
+lint-ci:
+	./manage.py makemigrations --check
+	black . --check --exclude="(venv|src)"
 	flake8 .
-
-release:
-	mkdir -p dist
-	python setup.py publish
-
-.PHONY: help clean test test-with-coverage lint release

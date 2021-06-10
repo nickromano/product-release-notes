@@ -32,27 +32,23 @@ class MissingRequestTemplateContext(Exception):
 
 @register.simple_tag(takes_context=True)
 def release_notes_feed(context):
-    scheme = ''
-    host = ''
+    scheme = ""
+    host = ""
 
     try:
-        request = context['request']
+        request = context["request"]
     except KeyError:
-        raise MissingRequestTemplateContext(
-            MissingRequestTemplateContext.ERROR_MESSAGE
-        )
+        raise MissingRequestTemplateContext(MissingRequestTemplateContext.ERROR_MESSAGE)
 
     scheme = request.scheme
     host = request.get_host()
 
     feed_url = FEED_HTML.format(
-        scheme=scheme,
-        host=host,
-        feed_url=reverse('release-notes-feed')
+        scheme=scheme, host=host, feed_url=reverse("release-notes-feed")
     )
     # Clean up newlines and extra space
-    feed_url = feed_url.replace('\n', '')
-    feed_url = re.sub(' +', ' ', feed_url)
+    feed_url = feed_url.replace("\n", "")
+    feed_url = re.sub(" +", " ", feed_url)
 
     return format_html(feed_url)
 

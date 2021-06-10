@@ -8,13 +8,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('product_release_notes', '0001_initial'),
+        ("product_release_notes", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='releasenote',
-            name='version',
+            model_name="releasenote",
+            name="version",
             field=models.CharField(blank=True, max_length=255),
         ),
     ]

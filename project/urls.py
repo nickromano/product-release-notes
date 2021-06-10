@@ -7,10 +7,10 @@ from django.views.generic import TemplateView
 
 
 urlpatterns = [
-    re_path(r'^', include('product_release_notes.urls')),
-    re_path(r'^admin/', admin.site.urls),
-
-    re_path(r'^deploy-instructions/$', TemplateView.as_view(
-        template_name="deploy-instructions.html"
-    )),
+    re_path(r"^", include("product_release_notes.urls")),
+    re_path(r"^admin/", admin.site.urls),
+    re_path(
+        r"^deploy-instructions/$",
+        TemplateView.as_view(template_name="deploy-instructions.html"),
+    ),
 ]

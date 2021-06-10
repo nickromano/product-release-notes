@@ -8,17 +8,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('product_release_notes', '0003_client_icon'),
+        ("product_release_notes", "0003_client_icon"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='client',
-            name='current_version',
+            model_name="client",
+            name="current_version",
         ),
         migrations.AlterField(
-            model_name='releasenote',
-            name='version',
+            model_name="releasenote",
+            name="version",
             field=models.CharField(blank=True, db_index=True, max_length=255),
         ),
     ]

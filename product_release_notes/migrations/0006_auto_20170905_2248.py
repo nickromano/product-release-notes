@@ -9,13 +9,18 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('product_release_notes', '0005_client_google_play_url'),
+        ("product_release_notes", "0005_client_google_play_url"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='releasenote',
-            name='client',
-            field=models.ForeignKey(help_text='Examples: iOS, Android, Web', on_delete=django.db.models.deletion.CASCADE, related_name='release_notes', to='product_release_notes.Client'),
+            model_name="releasenote",
+            name="client",
+            field=models.ForeignKey(
+                help_text="Examples: iOS, Android, Web",
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="release_notes",
+                to="product_release_notes.Client",
+            ),
         ),
     ]

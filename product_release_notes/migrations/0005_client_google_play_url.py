@@ -8,13 +8,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('product_release_notes', '0004_auto_20170821_2340'),
+        ("product_release_notes", "0004_auto_20170821_2340"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='client',
-            name='google_play_url',
-            field=models.CharField(blank=True, help_text='Enter the url to Google Play to automatically pull in new release notes as drafts.', max_length=1000),
+            model_name="client",
+            name="google_play_url",
+            field=models.CharField(
+                blank=True,
+                help_text="Enter the url to Google Play to automatically pull in new release notes as drafts.",
+                max_length=1000,
+            ),
         ),
     ]
