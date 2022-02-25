@@ -33,6 +33,7 @@ class Client(models.Model):
     """
     Android, iOS, Web
     """
+
     id = models.AutoField(primary_key=True)
 
     name = models.CharField(max_length=255)
