@@ -34,6 +34,8 @@ class Client(models.Model):
     Android, iOS, Web
     """
 
+    id = models.AutoField(primary_key=True)
+
     name = models.CharField(max_length=255)
     icon = models.CharField(
         max_length=20, choices=ClientIcons.CHOICES, default=ClientIcons.DESKTOP
@@ -70,6 +72,8 @@ class ReleaseNotesManager(models.Manager):
 
 
 class ReleaseNote(models.Model):
+    id = models.AutoField(primary_key=True)
+
     client = models.ForeignKey(
         Client,
         related_name="release_notes",
@@ -109,6 +113,8 @@ class ReleaseNote(models.Model):
 
 
 class ReleaseNoteEdit(models.Model):
+    id = models.AutoField(primary_key=True)
+
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, related_name="releas", on_delete=models.CASCADE
     )
