@@ -4,7 +4,7 @@ dj-database-url==2.1.0
 psycopg2==2.9.9
 Django==5.0.6
 beautifulsoup4==4.12.3
-requests==2.31.0
+requests==2.32.1
 markdown==3.6
 black==24.4.2
 flake8==7.0.0
