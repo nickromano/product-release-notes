@@ -7,5 +7,5 @@ beautifulsoup4==4.12.3
 requests==2.32.3
 markdown==3.6
 black==24.4.2
-flake8==7.0.0
+flake8==7.1.0
 mock==5.1.0
