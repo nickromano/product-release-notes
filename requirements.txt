@@ -6,6 +6,6 @@ Django==5.1.2
 beautifulsoup4==4.12.3
 requests==2.32.3
 markdown==3.7
-black==24.4.2
+black==24.10.0
 flake8==7.1.1
 mock==5.1.0
