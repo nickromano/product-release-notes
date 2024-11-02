@@ -1,6 +1,6 @@
 whitenoise==6.8.2
 gunicorn==23.0.0
-dj-database-url==2.2.0
+dj-database-url==2.3.0
 psycopg2==2.9.9
 Django==5.1.2
 beautifulsoup4==4.12.3
