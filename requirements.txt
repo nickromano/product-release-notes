@@ -8,4 +8,4 @@ requests==2.32.3
 markdown==3.7
 black==25.1.0
 flake8==7.1.2
-mock==5.1.0
+mock==5.2.0
