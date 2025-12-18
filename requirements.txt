@@ -2,7 +2,7 @@ whitenoise==6.11.0
 gunicorn==23.0.0
 dj-database-url==3.0.1
 psycopg2==2.9.11
-Django==5.2.7
+Django==5.2.8
 beautifulsoup4==4.14.2
 requests==2.32.5
 markdown==3.9
