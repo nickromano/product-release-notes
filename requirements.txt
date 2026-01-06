@@ -5,7 +5,7 @@ psycopg2==2.9.11
 Django==5.2.8
 beautifulsoup4==4.14.2
 requests==2.32.5
-markdown==3.9
+markdown==3.10
 black==25.9.0
 flake8==7.3.0
 mock==5.2.0
