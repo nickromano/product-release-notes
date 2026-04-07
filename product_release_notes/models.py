@@ -82,7 +82,7 @@ class ReleaseNote(models.Model):
     )
 
     notes = models.TextField()
-    release_date = models.DateField(default=datetime.today)
+    release_date = models.DateTimeField(default=datetime.today)
     version = models.CharField(max_length=255, blank=True, db_index=True)
 
     is_published = models.BooleanField(
