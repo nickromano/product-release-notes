@@ -50,7 +50,7 @@ def release_notes_feed(context):
     feed_url = feed_url.replace("\n", "")
     feed_url = re.sub(" +", " ", feed_url)
 
-    return format_html(feed_url)
+    return mark_safe(feed_url)
 
 
 @register.filter

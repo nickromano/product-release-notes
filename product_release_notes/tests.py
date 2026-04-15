@@ -112,7 +112,7 @@ class CheckAppStoreTestCase(TestCase):
         test_release_note = ReleaseNote.objects.all()[0]
         self.assertEqual(test_release_note.is_published, False)
         self.assertEqual(test_release_note.notes, "Initial release")
-        self.assertEqual(test_release_note.release_date, date(2017, 9, 1))
+        self.assertEqual(test_release_note.release_date.date(), date(2017, 9, 1))
         self.assertEqual(test_release_note.version, "1.0")
         self.assertEqual(test_release_note.client, test_client)
 
@@ -146,7 +146,7 @@ class CheckAppStoreTestCase(TestCase):
         test_release_note = ReleaseNote.objects.all()[0]
         self.assertEqual(test_release_note.is_published, False)
         self.assertEqual(test_release_note.notes, "Initial release")
-        self.assertEqual(test_release_note.release_date, date(2017, 9, 1))
+        self.assertEqual(test_release_note.release_date.date(), date(2017, 9, 1))
         self.assertEqual(test_release_note.version, "")
         self.assertEqual(test_release_note.client, test_client)
 
