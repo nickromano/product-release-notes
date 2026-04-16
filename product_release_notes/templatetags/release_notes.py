@@ -2,7 +2,6 @@ import re
 import markdown
 
 from django import template
-from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 
 try:
