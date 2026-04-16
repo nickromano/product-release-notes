@@ -5,7 +5,6 @@ from django.contrib import admin
 
 from django.views.generic import TemplateView
 
-
 urlpatterns = [
     re_path(r"^", include("product_release_notes.urls")),
     re_path(r"^admin/", admin.site.urls),

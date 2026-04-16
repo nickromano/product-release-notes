@@ -5,7 +5,6 @@ from product_release_notes.itunes import current_version_from_itunes
 from product_release_notes.google_play import current_version_from_google
 from product_release_notes.models import Client, ReleaseNote
 
-
 MAIL_MESSAGE = """Release Notes:
 {notes}
 
