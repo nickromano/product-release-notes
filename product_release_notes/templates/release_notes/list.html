@@ -56,7 +56,7 @@
 									<span class="latest-label">Latest</span>
 								</div>
 								<div class="text-upper font-bold m-b-sm">
-										Released {{ release_note.release_date }}
+										Released {{ release_note.release_date|date:"N j, Y" }}
 									</div>
 								<div class="markdown">
 									{{ release_note.notes|from_markdown }}
